@@ -4,6 +4,7 @@ import sys
 import evdev
 from evdev import UInput, InputEvent, ecodes as e
 import re
+from time import sleep
 
 def main():
     devices = [evdev.InputDevice(fn) for fn in evdev.list_devices()]
@@ -14,6 +15,7 @@ def main():
                 if event.value == 1:
                     ui.write(e.EV_KEY, e.KEY_ESC, 1)
                     ui.write(e.EV_KEY, e.KEY_ESC, 0)
+                    sleep(0.01)
                     ui.write(e.EV_KEY, e.KEY_A, 1)
                     ui.write(e.EV_KEY, e.KEY_A, 0)
                     ui.syn()

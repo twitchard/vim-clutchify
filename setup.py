@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
         name='vim-clutchify',
-        version='0.0.8',
+        version='0.0.9',
         description='vim-clutch evdev bindings for USB foot pedal. Linux only.',
         long_description="""
 Scans evdev for something that looks like a foot pedal.
