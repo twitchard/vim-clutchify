@@ -15,7 +15,7 @@ def main():
                 if event.value == 1:
                     ui.write(e.EV_KEY, e.KEY_ESC, 1)
                     ui.write(e.EV_KEY, e.KEY_ESC, 0)
-                    us.syn()
+                    ui.syn()
                     sleep(0.01)
                     ui.write(e.EV_KEY, e.KEY_A, 1)
                     ui.write(e.EV_KEY, e.KEY_A, 0)
