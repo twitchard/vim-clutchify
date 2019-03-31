@@ -4,8 +4,8 @@ Steps:
 2. Plug in USB footpedal named something like 'RDing FootSwitch1F1.'
 3. Disable the footpedal as an input into X.
 4. Run this program as root.
-4. When you press the pedal down '<esc>a' will be typed.
-5. When you release it, '<esc>' will be typed.
+4. When you press the pedal down `<esc>a` will be typed.
+5. When you release it, `<esc>` will be typed.
 
 Concretely:
 ```
