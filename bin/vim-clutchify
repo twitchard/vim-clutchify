@@ -22,11 +22,9 @@ def main():
             for event in device.read_loop():
                 if event.type == evdev.ecodes.EV_KEY:
                     if event.value == 1:
-                        tap(ui, "esc")
-                        sleep(0.01)
-                        tap(ui, "a")
+                        tap(ui, "F11")
                     elif event.value == 0:
-                        tap(ui, "esc")
+                        tap(ui, "F12")
         finally:
             operate_xinput_device(MODE_ENABLE, device.name)
 
