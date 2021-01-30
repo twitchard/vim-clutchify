@@ -7,6 +7,12 @@ from evdev import UInput, InputEvent, ecodes as e
 import re
 from time import sleep
 
+def tap(ui, key):
+    key = getattr(e, "KEY_%s" % key.upper())
+    ui.write(e.EV_KEY, key, 1)
+    ui.write(e.EV_KEY, key, 0)
+    ui.syn()
+
 def main():
     devices = [evdev.InputDevice(fn) for fn in evdev.list_devices()]
     device = next(x for x in devices if re.search("FootSwitch", x.name))
@@ -16,17 +22,11 @@ def main():
             for event in device.read_loop():
                 if event.type == evdev.ecodes.EV_KEY:
                     if event.value == 1:
-                        ui.write(e.EV_KEY, e.KEY_ESC, 1)
-                        ui.write(e.EV_KEY, e.KEY_ESC, 0)
-                        ui.syn()
+                        tap(ui, "esc")
                         sleep(0.01)
-                        ui.write(e.EV_KEY, e.KEY_A, 1)
-                        ui.write(e.EV_KEY, e.KEY_A, 0)
-                        ui.syn()
+                        tap(ui, "a")
                     elif event.value == 0:
-                        ui.write(e.EV_KEY, e.KEY_ESC, 1)
-                        ui.write(e.EV_KEY, e.KEY_ESC, 0)
-                        ui.syn()
+                        tap(ui, "esc")
         finally:
             operate_xinput_device(MODE_ENABLE, device.name)
 
