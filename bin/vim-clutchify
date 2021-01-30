@@ -7,26 +7,38 @@ from evdev import UInput, InputEvent, ecodes as e
 import re
 from time import sleep
 
-def tap(ui, key):
-    key = getattr(e, "KEY_%s" % key.upper())
-    ui.write(e.EV_KEY, key, 1)
-    ui.write(e.EV_KEY, key, 0)
-    ui.syn()
+class DeviceContext():
+    def __init__(self, deviceName):
+        devices = [evdev.InputDevice(fn) for fn in evdev.list_devices()]
+        self.device = next(x for x in devices if re.search(deviceName, x.name))
+
+    def __enter__(self):
+        operate_xinput_device(MODE_DISABLE, self.device.name)
+        self.ui = UInput()
+        return self
+
+    def event_loop(self):
+        yield from self.device.read_loop()
+
+    def tap(self, key):
+        key = getattr(e, "KEY_%s" % key.upper())
+        self.ui.write(e.EV_KEY, key, 1)
+        self.ui.write(e.EV_KEY, key, 0)
+        self.ui.syn()
+
+    def __exit__(self, type, value, traceback):
+        self.ui.__exit__(type, value, traceback)
+        operate_xinput_device(MODE_ENABLE, self.device.name)
+
 
 def main():
-    devices = [evdev.InputDevice(fn) for fn in evdev.list_devices()]
-    device = next(x for x in devices if re.search("FootSwitch", x.name))
-    operate_xinput_device(MODE_DISABLE, device.name)
-    with UInput() as ui:
-        try:
-            for event in device.read_loop():
-                if event.type == evdev.ecodes.EV_KEY:
-                    if event.value == 1:
-                        tap(ui, "F11")
-                    elif event.value == 0:
-                        tap(ui, "F12")
-        finally:
-            operate_xinput_device(MODE_ENABLE, device.name)
+    with DeviceContext("FootSwitch") as device:
+        for event in device.event_loop():
+            if event.type == e.EV_KEY:
+                if event.value == 1:
+                    device.tap("F11")
+                elif event.value == 0:
+                    device.tap("F12")
 
 if __name__ == "__main__":
     main()
