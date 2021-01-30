@@ -24,6 +24,6 @@ See https://github.com/alevchuk/vim-clutch
 
         keywords='vim evdev footpedal footswitch vim-clutch clutch',
         packages=find_packages(),
-        install_requires=['evdev'],
+        install_requires=['evdev', 'xinput'],
         scripts=['bin/vim-clutchify']
 )
