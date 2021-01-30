@@ -1,0 +1,10 @@
+[Unit]
+Description=Vim Clutch Service
+After=graphical.target
+
+[Service]
+ExecStart=vim-clutchify
+Restart=always
+
+[Install]
+WantedBy=default.target
