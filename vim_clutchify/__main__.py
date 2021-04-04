@@ -58,12 +58,18 @@ def main() -> None:
     separate keypresses.
     """
     with DeviceContext('FootSwitch') as device:
-        for event in device.event_loop():
-            if event.type == e.EV_KEY:  # pylint: disable=no-member
-                if event.value == 1:
-                    device.tap('F11')
-                elif event.value == 0:
-                    device.tap('F12')
+        while retry := True:
+            try:
+                for event in device.event_loop():
+                    if event.type == e.EV_KEY:  # pylint: disable=no-member
+                        if event.value == 1:
+                            device.tap('F11')
+                        elif event.value == 0:
+                            device.tap('F12')
+            except OSError:
+                retry = True
+            except KeyboardInterrupt:
+                retry = False
 
 if __name__ == '__main__':
     main()
