@@ -57,7 +57,7 @@ def main() -> None:
     """Caputure and input device and replace it's keydown/keyup events with
     separate keypresses.
     """
-    with DeviceContext('FootSwitch') as device:
+    with DeviceContext('HID 1a86:e026 Keyboard') as device:
         while retry := True:
             try:
                 for event in device.event_loop():
