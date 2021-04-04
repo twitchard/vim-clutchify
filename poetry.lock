@@ -1,0 +1,28 @@
+[[package]]
+name = "evdev"
+version = "1.4.0"
+description = "Bindings to the Linux input handling subsystem"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "xinput"
+version = "0.1.3"
+description = "Enable/disable xinput devices from terminal or using the API."
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3."
+content-hash = "44877fe83fbb1b7aa10a4b92e1795c6f254921c3fe22836229a495227410c33a"
+
+[metadata.files]
+evdev = [
+    {file = "evdev-1.4.0.tar.gz", hash = "sha256:8782740eb1a86b187334c07feb5127d3faa0b236e113206dfe3ae8f77fb1aaf1"},
+]
+xinput = [
+    {file = "xinput-0.1.3.tar.gz", hash = "sha256:5fa0561d29f8dd58dbae60452723751d2f214f8a3b2423d7532d515767e310c6"},
+]
