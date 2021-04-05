@@ -37,7 +37,7 @@ class DeviceContext():
         """Tap a key by sending instantaneous keydown, keyup and syncing.
         :param key: String key name to tap (from evdev.ecodes.KEY_*)
         """
-        key = getattr(e, 'KEY_%s' % key.upper())
+        key = e.ecodes[f'KEY_{key.upper()}']
         # Pylint claims evdev.ecodes.EV_KEY doesn't exists so needs disabling
         self.uinput.write(e.EV_KEY, key, 1)  # pylint: disable=no-member
         self.uinput.write(e.EV_KEY, key, 0)  # pylint: disable=no-member
