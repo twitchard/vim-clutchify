@@ -8,12 +8,9 @@ keywords = ["vim", "evdev", "footpedal", "footswitch", "vim-clutch", "clutch"]
 classifiers = [
     "Development Status :: 3 - Alpha"
 ]
-packages = [
-    { include = "vim-clutchify", from = "bin" },
-]
 
 [tool.poetry.scripts]
-# vim-clutchify = "vim-clutchify:main"
+vim-clutchify = 'vim_clutchify.__main__:main'
 
 [tool.poetry.dependencies]
 python = ">=3.6,<4"
